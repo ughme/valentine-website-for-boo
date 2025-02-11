@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love ❤️</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+        }
+        h1, h2 {
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            transition: 0.3s;
+        }
+        #yes-btn {
+            background-color: #ff4d6d;
+            color: white;
+        }
+        #no-btn {
+            background-color: #ffccd5;
+            color: black;
+            position: relative;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .hidden {
+            display: none;
+        }
+        #countdown {
+            font-size: 20px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hey Love ❤️</h1>
+        <p>You make my world brighter every day! I love you so much! 🥰</p>
+        <p>Will you be my Valentine? 💖</p>
+        
+        <div class="buttons">
+            <button id="yes-btn">Yes 💖</button>
+            <button id="no-btn">No 😢</button>
+        </div>
+
+        <div id="response" class="hidden">
+            <h2>As if you have any other choice 🥰</h2>
+            <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Happy GIF">
+        </div>
+
+        <p>Counting down the days until I see you... ⏳</p>
+        <div id="countdown"></div>
+        
+        <p>Here are some of our cutest moments together! 😍</p>
+        <img src="https://postimg.cc/RWLvpF7C" alt="Happy Together">
+        <img src="https://postimg.cc/QBWZGd5W" alt="Ugh I love US">
+    </div>
+
+    <script>
+        document.getElementById("yes-btn").addEventListener("click", function() {
+            document.getElementById("response").classList.remove("hidden");
+        });
+
+        document.getElementById("no-btn").addEventListener("mouseover", function() {
+            let button = document.getElementById("no-btn");
+            let x = Math.random() * (window.innerWidth - 150);
+            let y = Math.random() * (window.innerHeight - 50);
+            button.style.position = "absolute";
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        });
+
+        function countdown() {
+            const targetDate = new Date("August 8, 2025 00:00:00").getTime();
+            const x = setInterval(function() {
+                let now = new Date().getTime();
+                let distance = targetDate - now;
+
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("countdown").innerHTML = days + " days, " + hours + " hrs, " + minutes + " mins, " + seconds + " secs left!";
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("countdown").innerHTML = "The wait is over! 🎉";
+                }
+            }, 1000);
+        }
+        countdown();
+    </script>
+</body>
+</html>
