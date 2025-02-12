@@ -31,8 +31,7 @@
             background-size: cover;
             background-position: center;
             filter: blur(15px);
-            z-index: -1; /* Ensures content is on top */
-            background-color: rgba(255, 0, 128, 0.4); /* Pink Filter */
+            z-index: -1;
         }
 
         .container {
@@ -43,16 +42,20 @@
             max-width: 400px;
             z-index: 1;
         }
+
         h1, h2 {
             font-size: 24px;
             font-weight: bold;
         }
+
         p {
             font-size: 18px;
         }
+
         .buttons {
             margin-top: 20px;
         }
+
         button {
             font-size: 18px;
             padding: 10px 15px;
@@ -62,20 +65,38 @@
             margin: 10px;
             transition: 0.3s;
         }
+
         #yes-btn {
             background-color: #ff4d6d;
             color: white;
         }
+
         #no-btn {
             background-color: #ffccd5;
             color: black;
             position: relative;
         }
+
         button:hover {
             opacity: 0.8;
+            transform: scale(1.1);
         }
+
         .hidden {
             display: none;
+        }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: floatUp 2s ease-out;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
         }
     </style>
 </head>
@@ -99,18 +120,51 @@
     </div>
 
     <script>
-        document.getElementById("yes-btn").addEventListener("click", function() {
-            document.getElementById("response").classList.remove("hidden");
+        let noBtn = document.getElementById("no-btn");
+        let yesBtn = document.getElementById("yes-btn");
+        let responseDiv = document.getElementById("response");
+        let moveCount = 0;  // Track how many times "No" was hovered
+
+        // Show response when clicking "Yes"
+        yesBtn.addEventListener("click", function() {
+            responseDiv.classList.remove("hidden");
+            createFloatingHearts();
         });
 
-        document.getElementById("no-btn").addEventListener("mouseover", function() {
-            let button = document.getElementById("no-btn");
+        // No button moves faster each time it’s hovered
+        noBtn.addEventListener("mouseover", function() {
+            moveCount++;
             let x = Math.random() * (window.innerWidth - 150);
             let y = Math.random() * (window.innerHeight - 50);
-            button.style.position = "absolute";
-            button.style.left = `${x}px`;
-            button.style.top = `${y}px`;
+            noBtn.style.position = "absolute";
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            
+            if (moveCount > 5) {
+                noBtn.style.transition = "0.1s";
+                noBtn.style.transform = "scale(0.8)";
+            }
         });
+
+        // Create floating heart animation
+        function createFloatingHearts() {
+            for (let i = 0; i < 10; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.classList.add("heart");
+                document.body.appendChild(heart);
+
+                let x = Math.random() * window.innerWidth;
+                let y = Math.random() * window.innerHeight;
+
+                heart.style.left = `${x}px`;
+                heart.style.top = `${y}px`;
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
+        }
     </script>
 </body>
 </html>
