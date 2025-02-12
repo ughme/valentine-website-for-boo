@@ -16,16 +16,36 @@
             height: 100vh;
             margin: 0;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
+
+        /* Background Image with Blur and Pink Filter */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.postimg.cc/4ytPvFqJ/Whats-App-Image-2025-02-12-at-02-22-17-de6cc77f.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(15px);
+            z-index: -1; /* Ensures content is on top */
+            background-color: rgba(255, 0, 128, 0.4); /* Pink Filter */
+        }
+
         .container {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.4);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
             max-width: 400px;
+            z-index: 1;
         }
         h1, h2 {
             font-size: 24px;
+            font-weight: bold;
         }
         p {
             font-size: 18px;
@@ -63,13 +83,11 @@
             gap: 10px;
             margin-top: 20px;
         }
-        img {
-            width: 150px;
-            height: auto;
-        }
     </style>
 </head>
 <body>
+    <div class="background"></div> <!-- Blurred and Pink Filtered Background -->
+
     <div class="container">
         <h1>Hey Love ❤️</h1>
         <p>You make my world brighter every day! I love you so much! 🥰</p>
@@ -85,13 +103,6 @@
             <img src="https://media.tenor.com/83S8-ik6YEIAAAAi/poke-the-bear-funny.gif" alt="Cute GIF" />
         </div>
 
-        <div class="images-container">
-            <img src="https://i.postimg.cc/4ytPvFqJ/Whats-App-Image-2025-02-12-at-02-22-17-de6cc77f.jpg" 
-                 alt="Happy Together" />
-            <img src="https://i.postimg.cc/tT8DxHrS/Whats-App-Image-2025-02-12-at-02-22-18-d9141379.jpg" 
-                 alt="Ugh I love US" />
-        </div>
-        
         <p>BOO and ME! 😍</p>
     </div>
 
