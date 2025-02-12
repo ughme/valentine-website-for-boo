@@ -57,15 +57,15 @@
         .hidden {
             display: none;
         }
-        #countdown {
-            font-size: 20px;
-            margin-top: 10px;
-            font-weight: bold;
+        .images-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
         }
         img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-top: 10px;
+            width: 150px;
+            height: auto;
         }
     </style>
 </head>
@@ -85,16 +85,14 @@
             <img src="https://media.tenor.com/83S8-ik6YEIAAAAi/poke-the-bear-funny.gif" alt="Cute GIF" />
         </div>
 
-        <p>Counting down the days until I see you... ⏳</p>
-        <div id="countdown"></div>
+        <div class="images-container">
+            <img src="https://i.postimg.cc/4ytPvFqJ/Whats-App-Image-2025-02-12-at-02-22-17-de6cc77f.jpg" 
+                 alt="Happy Together" />
+            <img src="https://i.postimg.cc/tT8DxHrS/Whats-App-Image-2025-02-12-at-02-22-18-d9141379.jpg" 
+                 alt="Ugh I love US" />
+        </div>
         
         <p>BOO and ME! 😍</p>
-        <img src="https://i.postimg.cc/4ytPvFqJ/Whats-App-Image-2025-02-12-at-02-22-17-de6cc77f.jpg" 
-             alt="Happy Together" style="max-width: 100%; height: auto;" />
-                
-        <img src="https://i.postimg.cc/tT8DxHrS/Whats-App-Image-2025-02-12-at-02-22-18-d9141379.jpg" 
-             alt="Ugh I love US" style="max-width: 100%; height: auto;" />
-
     </div>
 
     <script>
@@ -110,27 +108,6 @@
             button.style.left = `${x}px`;
             button.style.top = `${y}px`;
         });
-
-        function countdown() {
-            const targetDate = new Date("August 8, 2025 00:00:00").getTime();
-            const x = setInterval(function() {
-                let now = new Date().getTime();
-                let distance = targetDate - now;
-
-                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("countdown").innerHTML = days + " days, " + hours + " hrs, " + minutes + " mins, " + seconds + " secs left!";
-
-                if (distance < 0) {
-                    clearInterval(x);
-                    document.getElementById("countdown").innerHTML = "The wait is over! 🎉";
-                }
-            }, 1000);
-        }
-        countdown();
     </script>
 </body>
 </html>
