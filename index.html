@@ -42,6 +42,7 @@
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
             max-width: 400px;
             z-index: 1;
+            transition: background 0.5s ease;
         }
 
         h1, h2 {
@@ -100,6 +101,7 @@
             height: 100px;
             border-radius: 10px;
             object-fit: cover;
+            cursor: pointer;
         }
 
         /* Music Player */
@@ -142,9 +144,9 @@
 
             <!-- Mini Photo Gallery -->
             <div class="images-container">
-                <img src="https://i.postimg.cc/4ytPvFqJ/Whats-App-Image-2025-02-12-at-02-22-17-de6cc77f.jpg" alt="Photo 1">
-                <img src="https://i.postimg.cc/tT8DxHrS/Whats-App-Image-2025-02-12-at-02-22-18-d9141379.jpg" alt="Photo 2">
-                <img src="https://i.postimg.cc/c4LC7TQK/Whats-App-Image-2025-02-12-at-02-22-17-31257ba6.jpg" alt="Photo 3">
+                <img src="https://i.postimg.cc/4ytPvFqJ/Whats-App-Image-2025-02-12-at-02-22-17-de6cc77f.jpg" alt="Photo 1" onclick="changeBackground(1)">
+                <img src="https://i.postimg.cc/tT8DxHrS/Whats-App-Image-2025-02-12-at-02-22-18-d9141379.jpg" alt="Photo 2" onclick="changeBackground(2)">
+                <img src="https://i.postimg.cc/c4LC7TQK/Whats-App-Image-2025-02-12-at-02-22-17-31257ba6.jpg" alt="Photo 3" onclick="changeBackground(3)">
             </div>
 
             <!-- Music Player -->
@@ -180,6 +182,24 @@
                 }
             }, speed);
         });
+
+        // Change background color based on image clicked
+        function changeBackground(imageNumber) {
+            const container = document.querySelector('.container');
+            switch(imageNumber) {
+                case 1:
+                    container.style.background = 'rgba(255, 192, 203, 0.7)';
+                    break;
+                case 2:
+                    container.style.background = 'rgba(255, 223, 186, 0.7)';
+                    break;
+                case 3:
+                    container.style.background = 'rgba(255, 182, 193, 0.7)';
+                    break;
+                default:
+                    container.style.background = 'rgba(255, 192, 203, 0.6)';
+            }
+        }
     </script>
 </body>
 </html>
