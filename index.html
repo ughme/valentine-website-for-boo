@@ -33,6 +33,7 @@
             filter: blur(15px);
             animation: slowZoom 10s infinite alternate ease-in-out;
             z-index: -1;
+            transition: background 0.5s ease-in-out;
         }
 
         @keyframes slowZoom {
@@ -121,7 +122,7 @@
     </style>
 </head>
 <body>
-    <div class="background"></div>
+    <div class="background" id="dynamic-bg"></div>
 
     <div class="container" id="main-box">
         <h1>Hey Srinath ❤️</h1>
@@ -174,7 +175,10 @@
 
         document.querySelectorAll(".images-container img").forEach(img => {
             img.addEventListener("click", function() {
-                document.getElementById("main-box").style.background = "rgba(255, 105, 180, 0.8)";
+                let bg = document.getElementById("dynamic-bg");
+                bg.style.backgroundImage = `url(${this.src})`;
+                bg.style.filter = "blur(15px)";
+                bg.style.animation = "slowZoom 10s infinite alternate ease-in-out";
             });
         });
     </script>
