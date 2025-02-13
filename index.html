@@ -20,7 +20,7 @@
             overflow: hidden;
         }
 
-        /* Background Image with Blur and Pink Filter */
+        /* Background Image with Blur and Animation */
         .background {
             position: absolute;
             top: 0;
@@ -31,12 +31,21 @@
             background-size: cover;
             background-position: center;
             filter: blur(15px);
+            animation: slowZoom 10s infinite alternate ease-in-out;
             z-index: -1;
-            background-color: rgba(255, 0, 128, 0.4);
+        }
+
+        @keyframes slowZoom {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
         }
 
         .container {
-            background: rgba(255, 192, 203, 0.6); /* Soft baby pink */
+            background: rgba(255, 192, 203, 0.6);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
@@ -78,7 +87,7 @@
         #no-btn {
             background-color: #ffccd5;
             color: black;
-            position: relative;
+            position: absolute;
         }
 
         button:hover {
@@ -104,30 +113,17 @@
             cursor: pointer;
         }
 
-        /* Music Player */
-        .music-container {
-            margin-top: 20px;
-        }
-
-        iframe {
-            width: 300px;
-            height: 150px;
-            border-radius: 10px;
-        }
-
-        /* Center GIF */
-        #response img {
+        .gif-container img {
             width: 150px;
-            height: 150px;
-            margin: 0 auto;
             display: block;
+            margin: auto;
         }
     </style>
 </head>
 <body>
     <div class="background"></div>
 
-    <div class="container">
+    <div class="container" id="main-box">
         <h1>Hey Srinath ❤️</h1>
         <p>You make my world brighter every day! I love you so much! 🥰</p>
         <p>Will you be my Valentine? 💖</p>
@@ -139,17 +135,17 @@
 
         <div id="response" class="hidden">
             <h2>Like you had any other option 🥰</h2>
-            <img src="https://media.tenor.com/83S8-ik6YEIAAAAi/poke-the-bear-funny.gif" alt="Cute GIF" />
+            <div class="gif-container">
+                <img src="https://media.tenor.com/83S8-ik6YEIAAAAi/poke-the-bear-funny.gif" alt="Cute GIF" />
+            </div>
             <p id="ily-message" class="hidden">I love you forever, Boo! 😘💖</p>
-
-            <!-- Mini Photo Gallery -->
+            
             <div class="images-container">
-                <img src="https://i.postimg.cc/4ytPvFqJ/Whats-App-Image-2025-02-12-at-02-22-17-de6cc77f.jpg" alt="Photo 1" onclick="changeBackground(1)">
-                <img src="https://i.postimg.cc/tT8DxHrS/Whats-App-Image-2025-02-12-at-02-22-18-d9141379.jpg" alt="Photo 2" onclick="changeBackground(2)">
-                <img src="https://i.postimg.cc/c4LC7TQK/Whats-App-Image-2025-02-12-at-02-22-17-31257ba6.jpg" alt="Photo 3" onclick="changeBackground(3)">
+                <img src="https://i.postimg.cc/4ytPvFqJ/Whats-App-Image-2025-02-12-at-02-22-17-de6cc77f.jpg" alt="Photo 1">
+                <img src="https://i.postimg.cc/tT8DxHrS/Whats-App-Image-2025-02-12-at-02-22-18-d9141379.jpg" alt="Photo 2">
+                <img src="https://i.postimg.cc/c4LC7TQK/Whats-App-Image-2025-02-12-at-02-22-17-31257ba6.jpg" alt="Photo 3">
             </div>
 
-            <!-- Music Player -->
             <div class="music-container">
                 <p>Song for my forever valentine! 🎶</p>
                 <iframe src="https://www.youtube.com/embed/2AH5l-vrY9Q?autoplay=1&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -160,46 +156,27 @@
     <script>
         document.getElementById("yes-btn").addEventListener("click", function() {
             document.getElementById("response").classList.remove("hidden");
-            document.getElementById("no-btn").remove(); // Remove 'No' button after clicking 'Yes'
+            document.getElementById("no-btn").remove();
             document.getElementById("ily-message").classList.remove("hidden");
         });
 
-        let noButtonClickCount = 0;
-
         document.getElementById("no-btn").addEventListener("click", function() {
             let button = document.getElementById("no-btn");
-            let x = Math.random() * (window.innerWidth - 150);
-            let y = Math.random() * (window.innerHeight - 50);
-            button.style.position = "absolute";
-            button.style.left = `${x}px`;
-            button.style.top = `${y}px`;
-
-            // Increase speed by decreasing the delay for each click
-            let speed = Math.max(100, 500 - noButtonClickCount * 20); // Speed up as clicked
-            setTimeout(() => {
-                if (noButtonClickCount < 20) {
-                    noButtonClickCount++;
-                }
-            }, speed);
+            let count = parseInt(button.dataset.clicks || "0");
+            if (count < 20) {
+                let x = Math.random() * (window.innerWidth - 100);
+                let y = Math.random() * (window.innerHeight - 50);
+                button.style.left = `${x}px`;
+                button.style.top = `${y}px`;
+                button.dataset.clicks = count + 1;
+            }
         });
 
-        // Change background color based on image clicked
-        function changeBackground(imageNumber) {
-            const container = document.querySelector('.container');
-            switch(imageNumber) {
-                case 1:
-                    container.style.background = 'rgba(255, 192, 203, 0.7)';
-                    break;
-                case 2:
-                    container.style.background = 'rgba(255, 223, 186, 0.7)';
-                    break;
-                case 3:
-                    container.style.background = 'rgba(255, 182, 193, 0.7)';
-                    break;
-                default:
-                    container.style.background = 'rgba(255, 192, 203, 0.6)';
-            }
-        }
+        document.querySelectorAll(".images-container img").forEach(img => {
+            img.addEventListener("click", function() {
+                document.getElementById("main-box").style.background = "rgba(255, 105, 180, 0.8)";
+            });
+        });
     </script>
 </body>
 </html>
